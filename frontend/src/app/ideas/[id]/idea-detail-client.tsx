@@ -2,17 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { apiService } from "@/services/api";
-import { socketService } from "@/services/socket";
+import { apiService } from "../../../services/api";
+import { socketService } from "../../../services/socket";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
-import { Textarea } from "@/components/ui/textarea";
-import { ShareModal } from "@/components/modals/share-modal";
-import { CollaborationModal } from "@/components/modals/collaboration-modal";
+import { Button } from "../../../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
+import { Badge } from "../../../components/ui/badge";
+import { Avatar, AvatarFallback } from "../../../components/ui/avatar";
+import { Separator } from "../../../components/ui/separator";
+import { Textarea } from "../../../components/ui/textarea";
+import { ShareModal } from "../../../components/modals/share-modal";
+import { CollaborationModal } from "../../../components/modals/collaboration-modal";
 import { 
   Zap, 
   ArrowLeft, 

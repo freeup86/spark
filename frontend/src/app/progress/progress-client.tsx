@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { apiService } from "@/services/api";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
+import { apiService } from "../../services/api";
+import { Button } from "../../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
+import { Progress } from "../../components/ui/progress";
+import { Badge } from "../../components/ui/badge";
 import { Zap, ArrowLeft, TrendingUp, Target, Clock, Award } from "lucide-react";
 
 interface Project {
