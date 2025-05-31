@@ -128,18 +128,19 @@ export function IdeaDetailClient() {
         const ideaData = await apiService.getIdea(ideaId);
         
         // Check if ideaData has the expected structure
-        if (ideaData && ideaData.user) {
+        const ideaDataObj = ideaData as any;
+        if (ideaDataObj && ideaDataObj.user) {
           // Transform the data to match expected format
           const transformedIdea = {
-            ...ideaData,
+            ...ideaDataObj,
             author: {
-              name: ideaData.user.name || 'Unknown',
-              role: ideaData.user.role || 'User',
-              avatar: ideaData.user.name ? ideaData.user.name.split(' ').map((n: string) => n[0]).join('').toUpperCase() : 'U'
+              name: ideaDataObj.user.name || 'Unknown',
+              role: ideaDataObj.user.role || 'User',
+              avatar: ideaDataObj.user.name ? ideaDataObj.user.name.split(' ').map((n: string) => n[0]).join('').toUpperCase() : 'U'
             },
-            likes: ideaData._count?.votes || 0,
-            comments: ideaData._count?.comments || 0,
-            collaborators: ideaData.collaborations || [],
+            likes: ideaDataObj._count?.votes || 0,
+            comments: ideaDataObj._count?.comments || 0,
+            collaborators: ideaDataObj.collaborations || [],
             milestones: []
           };
           
@@ -150,7 +151,8 @@ export function IdeaDetailClient() {
         try {
           const commentsData = await apiService.getComments(ideaId);
           // Ensure no duplicate comments by ID
-          const uniqueComments = commentsData.filter((comment: any, index: number, self: any[]) => 
+          const commentsArray = commentsData as any[];
+          const uniqueComments = commentsArray.filter((comment: any, index: number, self: any[]) => 
             index === self.findIndex((c: any) => c.id === comment.id)
           );
           setComments(uniqueComments);
