@@ -123,9 +123,10 @@ export default function ProfilePage() {
         
         // If not in mock data, fetch from API
         const users = await apiService.getUsers();
+        const usersArray = users as any[];
         
         // Try to find user by matching the slug with their name
-        const foundUser = users.find((u: any) => {
+        const foundUser = usersArray.find((u: any) => {
           const userSlug = u.name.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '');
           return userSlug === userId;
         });
