@@ -267,9 +267,10 @@ export function IdeaDetailClient() {
       // Add the new comment to the list (check for duplicates)
       setComments(prev => {
         // Check if comment already exists (might have been added via WebSocket)
-        const exists = prev.some(c => c.id === comment.id);
+        const commentObj = comment as any;
+        const exists = prev.some(c => c.id === commentObj.id);
         if (exists) return prev;
-        return [comment, ...prev];
+        return [commentObj, ...prev];
       });
       setNewComment("");
       console.log("Comment added successfully!");
