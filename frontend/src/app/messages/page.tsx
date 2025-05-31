@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { apiService } from "../../services/api";
 import { socketService } from "../../services/socket";
@@ -21,7 +21,7 @@ import {
 
 
 
-export default function MessagesPage() {
+function MessagesContent() {
   const searchParams = useSearchParams();
   const [selectedConversation, setSelectedConversation] = useState<string | null>(null);
   const [newMessage, setNewMessage] = useState("");
@@ -363,5 +363,19 @@ export default function MessagesPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function MessagesPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center">Loading messages...</div>
+        </div>
+      </div>
+    }>
+      <MessagesContent />
+    </Suspense>
   );
 }
