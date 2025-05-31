@@ -58,12 +58,13 @@ export function DashboardClient() {
         console.log("User ideas received:", userIdeas);
         
         // Calculate stats from real data
-        const ideasShared = userIdeas.length;
+        const ideasArray = userIdeas as any[];
+        const ideasShared = ideasArray.length;
         let totalLikes = 0;
         let totalComments = 0;
         let collaborations = 0;
         
-        userIdeas.forEach((idea: any) => {
+        ideasArray.forEach((idea: any) => {
           totalLikes += idea._count?.votes || 0;
           totalComments += idea._count?.comments || 0;
           collaborations += idea._count?.collaborations || 0;

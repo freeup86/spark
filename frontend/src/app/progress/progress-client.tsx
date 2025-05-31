@@ -50,16 +50,17 @@ export function ProgressClient() {
 
         const user = JSON.parse(userStr);
         const userProjects = await apiService.getUserIdeas(user.id);
+        const projectsArray = userProjects as any[];
         
-        setProjects(userProjects);
+        setProjects(projectsArray);
         
         // Calculate stats
-        const completed = userProjects.filter((p: any) => p.status === 'COMPLETED').length;
-        const inProgress = userProjects.filter((p: any) => p.status === 'IN_PROGRESS' || p.status === 'PUBLISHED').length;
-        const draft = userProjects.filter((p: any) => p.status === 'DRAFT').length;
+        const completed = projectsArray.filter((p: any) => p.status === 'COMPLETED').length;
+        const inProgress = projectsArray.filter((p: any) => p.status === 'IN_PROGRESS' || p.status === 'PUBLISHED').length;
+        const draft = projectsArray.filter((p: any) => p.status === 'DRAFT').length;
         
         setStats({
-          total: userProjects.length,
+          total: projectsArray.length,
           completed,
           inProgress,
           draft,
