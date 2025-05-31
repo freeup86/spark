@@ -68,7 +68,8 @@ export default function MessagesPage() {
           // Try to fetch the user info for better display
           try {
             const users = await apiService.getUsers();
-            const targetUser = users.find((u: any) => u.id === userParam);
+            const usersArray = users as any[];
+            const targetUser = usersArray.find((u: any) => u.id === userParam);
             if (targetUser) {
               setSelectedUser(targetUser);
               
