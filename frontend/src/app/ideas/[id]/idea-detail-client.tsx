@@ -184,7 +184,8 @@ export function IdeaDetailClient() {
       } catch (error) {
         console.error('Error fetching idea:', error);
         // Fallback to mock data
-        const mockIdea = mockIdeaData[ideaId as keyof typeof mockIdeaData] || mockIdeaData[1];
+        const numericId = parseInt(ideaId);
+        const mockIdea = mockIdeaData[numericId as keyof typeof mockIdeaData] || mockIdeaData[1];
         if (mockIdea) {
           setIdea(mockIdea);
         }
