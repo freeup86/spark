@@ -46,7 +46,7 @@ export function CollaboratorsClient() {
         const users = await apiService.getUsers();
         
         // Filter out current user
-        const otherUsers = users.filter((u: any) => u.id !== user.id);
+        const otherUsers = (users as any[]).filter((u: any) => u.id !== user.id);
         
         // Transform users to match collaborator format
         const transformedUsers = otherUsers.map((u: any, index: number) => ({

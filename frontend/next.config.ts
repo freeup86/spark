@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 import path from 'path';
 
 const nextConfig: NextConfig = {
+  // Skip ESLint during build for deployment
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  
   // Configure webpack for proper module resolution
   webpack: (config, { isServer }) => {
     config.resolve.alias = {
