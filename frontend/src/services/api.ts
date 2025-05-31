@@ -1,5 +1,5 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-const API_PREFIX = process.env.NODE_ENV === 'production' ? '/api' : '';
+const API_PREFIX = '/api'; // Backend uses /api prefix for all routes except health
 
 class ApiService {
   private getAuthHeaders() {
@@ -12,12 +12,15 @@ class ApiService {
 
   private async request<T>(endpoint: string, options?: RequestInit): Promise<T> {
     const url = `${API_BASE_URL}${API_PREFIX}${endpoint}`;
+    console.log('Making API request to:', url);
+    
     const response = await fetch(url, {
       ...options,
       headers: {
         ...this.getAuthHeaders(),
         ...(options?.headers || {}),
       },
+      mode: 'cors', // Explicitly set CORS mode
     });
 
     if (!response.ok) {
