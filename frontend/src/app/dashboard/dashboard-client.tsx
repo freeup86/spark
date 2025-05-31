@@ -88,7 +88,7 @@ export function DashboardClient() {
         try {
           const notificationsData = await apiService.getNotifications(10, 0);
           console.log("Notifications received:", notificationsData);
-          setNotifications(notificationsData);
+          setNotifications(notificationsData as any[]);
         } catch (error) {
           console.error("Error fetching notifications:", error);
         }
