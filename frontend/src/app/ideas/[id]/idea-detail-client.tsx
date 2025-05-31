@@ -28,7 +28,7 @@ import {
 } from "lucide-react";
 
 // Mock data - in real app this would come from API
-const ideaData = {
+const mockIdeaData = {
   1: {
     id: 1,
     title: "Sustainable Urban Farming Platform",
@@ -184,7 +184,7 @@ export function IdeaDetailClient() {
       } catch (error) {
         console.error('Error fetching idea:', error);
         // Fallback to mock data
-        const mockIdea = ideaData[ideaId as keyof typeof ideaData] || ideaData[1];
+        const mockIdea = mockIdeaData[ideaId as keyof typeof mockIdeaData] || mockIdeaData[1];
         if (mockIdea) {
           setIdea(mockIdea);
         }
