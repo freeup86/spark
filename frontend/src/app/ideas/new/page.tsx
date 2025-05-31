@@ -47,7 +47,7 @@ export default function NewIdeaPage() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3000/ideas", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://spark-backend-l114.onrender.com'}/api/ideas`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
