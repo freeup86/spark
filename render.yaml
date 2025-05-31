@@ -1,0 +1,39 @@
+services:
+  # Backend API Service
+  - type: web
+    name: spark-backend
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: cd backend && npm ci && npx prisma generate && npm run build
+    startCommand: cd backend && npx prisma migrate deploy && npm run start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false  # Set this manually in Render dashboard
+      - key: NODE_TLS_REJECT_UNAUTHORIZED
+        value: "0"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 3000
+      - key: FRONTEND_URL
+        value: https://spark-frontend.onrender.com
+    healthCheckPath: /health
+
+  # Frontend Web Service
+  - type: web
+    name: spark-frontend
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: cd frontend && npm ci && npm run build
+    startCommand: cd frontend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        value: https://spark-backend.onrender.com
+      - key: PORT
+        value: 3001

@@ -1,0 +1,174 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String          @id @default(uuid())
+  email          String          @unique
+  password       String
+  name           String
+  role           UserRole        @default(USER)
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  
+  ideas          Idea[]
+  collaborations Collaboration[]
+  comments       Comment[]
+  votes          Vote[]
+  notifications  Notification[]
+  messages       Message[]       @relation("UserMessages")
+  receivedMessages Message[]     @relation("ReceivedMessages")
+}
+
+model Idea {
+  id             String          @id @default(uuid())
+  title          String
+  description    String          @db.Text
+  category       String
+  status         IdeaStatus      @default(DRAFT)
+  visibility     Visibility      @default(PUBLIC)
+  userId         String
+  user           User            @relation(fields: [userId], references: [id])
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  
+  collaborations Collaboration[]
+  comments       Comment[]
+  votes          Vote[]
+  tags           Tag[]
+  attachments    Attachment[]
+}
+
+model Collaboration {
+  id             String          @id @default(uuid())
+  ideaId         String
+  idea           Idea            @relation(fields: [ideaId], references: [id])
+  userId         String
+  user           User            @relation(fields: [userId], references: [id])
+  role           CollaborationRole @default(MEMBER)
+  status         String          @default("PENDING")
+  skillArea      String?
+  message        String?         @db.Text
+  commitment     String?
+  joinedAt       DateTime        @default(now())
+  
+  @@unique([ideaId, userId])
+}
+
+model Comment {
+  id             String          @id @default(uuid())
+  content        String          @db.Text
+  ideaId         String
+  idea           Idea            @relation(fields: [ideaId], references: [id])
+  userId         String
+  user           User            @relation(fields: [userId], references: [id])
+  parentId       String?
+  parent         Comment?        @relation("CommentReplies", fields: [parentId], references: [id])
+  replies        Comment[]       @relation("CommentReplies")
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
+
+model Vote {
+  id             String          @id @default(uuid())
+  type           VoteType
+  ideaId         String
+  idea           Idea            @relation(fields: [ideaId], references: [id])
+  userId         String
+  user           User            @relation(fields: [userId], references: [id])
+  createdAt      DateTime        @default(now())
+  
+  @@unique([ideaId, userId])
+}
+
+model Tag {
+  id             String          @id @default(uuid())
+  name           String          @unique
+  ideas          Idea[]
+}
+
+model Attachment {
+  id             String          @id @default(uuid())
+  filename       String
+  url            String
+  mimeType       String
+  size           Int
+  ideaId         String
+  idea           Idea            @relation(fields: [ideaId], references: [id])
+  createdAt      DateTime        @default(now())
+}
+
+model Notification {
+  id             String          @id @default(uuid())
+  type           NotificationType
+  title          String
+  message        String
+  read           Boolean         @default(false)
+  userId         String
+  user           User            @relation(fields: [userId], references: [id])
+  createdAt      DateTime        @default(now())
+}
+
+model Message {
+  id             String          @id @default(uuid())
+  content        String          @db.Text
+  senderId       String
+  sender         User            @relation("UserMessages", fields: [senderId], references: [id])
+  receiverId     String
+  receiver       User            @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  read           Boolean         @default(false)
+  createdAt      DateTime        @default(now())
+}
+
+enum UserRole {
+  USER
+  MODERATOR
+  ADMIN
+}
+
+enum IdeaStatus {
+  DRAFT
+  PUBLISHED
+  IN_PROGRESS
+  COMPLETED
+  ARCHIVED
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+  TEAM_ONLY
+}
+
+enum CollaborationRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum VoteType {
+  UPVOTE
+  DOWNVOTE
+}
+
+enum NotificationType {
+  COMMENT
+  VOTE
+  COLLABORATION_REQUEST
+  COLLABORATION_ACCEPTED
+  IDEA_STATUS_CHANGE
+  MESSAGE
+  SYSTEM
+}
