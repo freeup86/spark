@@ -167,8 +167,9 @@ export default function MessagesPage() {
       });
 
       // Add message to local state immediately for instant feedback
+      const messageObj = message as any;
       const transformedMessage = {
-        ...message,
+        ...messageObj,
         fromMe: true,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
