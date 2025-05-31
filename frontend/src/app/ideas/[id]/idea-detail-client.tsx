@@ -246,11 +246,9 @@ export function IdeaDetailClient() {
       const mockComment = {
         id: Date.now(),
         content: newComment,
-        user: {
-          name: "Demo User",
-          email: "demo@example.com"
-        },
-        createdAt: new Date().toISOString(),
+        author: "Demo User",
+        avatar: "DU",
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         likes: 0
       };
       setComments([mockComment, ...comments]);
