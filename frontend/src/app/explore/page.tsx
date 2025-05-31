@@ -80,7 +80,7 @@ export default function ExplorePage() {
       const ideasData = await apiService.getIdeas(0, 50);
       
       // Transform API data to match our display format
-      const transformedIdeas = ideasData.map((idea: any) => ({
+      const transformedIdeas = (ideasData as any[]).map((idea: any) => ({
         id: idea.id,
         title: idea.title,
         description: idea.description,

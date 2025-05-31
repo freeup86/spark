@@ -127,7 +127,7 @@ export default function MessagesPage() {
   const fetchConversations = async () => {
     try {
       const conversationsData = await apiService.getConversations();
-      setConversations(conversationsData);
+      setConversations(conversationsData as any[]);
     } catch (error) {
       console.error("Error fetching conversations:", error);
     }
@@ -139,7 +139,7 @@ export default function MessagesPage() {
       const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
       
       // Transform messages to include fromMe flag
-      const transformedMessages = messagesData.map((msg: any) => ({
+      const transformedMessages = (messagesData as any[]).map((msg: any) => ({
         ...msg,
         fromMe: msg.senderId === currentUser.id,
         timestamp: new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
