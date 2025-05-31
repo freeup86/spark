@@ -414,20 +414,20 @@ export function IdeaDetailClient() {
                 {/* Comments List */}
                 <div className="space-y-4">
                   {comments.map((comment) => {
-                    const avatar = comment.user?.name 
-                      ? comment.user.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()
-                      : 'AU';
-                    const timestamp = new Date(comment.createdAt).toLocaleString();
+                    const avatarText = comment.avatar || (comment.author 
+                      ? comment.author.split(' ').map((n: string) => n[0]).join('').toUpperCase()
+                      : 'AU');
+                    const timestampText = comment.timestamp || new Date().toLocaleString();
                     
                     return (
                       <div key={comment.id} className="flex gap-3">
                         <Avatar className="h-8 w-8">
-                          <AvatarFallback className="text-xs">{avatar}</AvatarFallback>
+                          <AvatarFallback className="text-xs">{avatarText}</AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="font-medium text-sm">{comment.user?.name || 'Anonymous'}</span>
-                            <span className="text-xs text-muted-foreground">{timestamp}</span>
+                            <span className="font-medium text-sm">{comment.author || 'Anonymous'}</span>
+                            <span className="text-xs text-muted-foreground">{timestampText}</span>
                           </div>
                           <p className="text-sm text-muted-foreground mb-2">{comment.content}</p>
                           <div className="flex items-center gap-2">
