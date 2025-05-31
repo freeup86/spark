@@ -1,5 +1,10 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://spark-backend-l114.onrender.com';
 const API_PREFIX = '/api'; // Backend uses /api prefix for all routes except health
+
+// Debug logging
+console.log('Environment:', process.env.NODE_ENV);
+console.log('API Base URL from env:', process.env.NEXT_PUBLIC_API_URL);
+console.log('Final API Base URL:', API_BASE_URL);
 
 class ApiService {
   private getAuthHeaders() {
