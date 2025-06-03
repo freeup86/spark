@@ -2,6 +2,16 @@ import Link from "next/link";
 import { Button } from "../components/ui/button";
 import { ArrowRight, Lightbulb, Users, TrendingUp, Globe, Zap, Shield } from "lucide-react";
 
+export const metadata = {
+  title: "Spark - Innovation Platform | Transform Ideas Into Reality",
+  description: "Join 10K+ innovators on Spark. Share ideas, collaborate on projects, and launch startups with AI-powered tools. Start creating today!",
+  openGraph: {
+    title: "Spark - Innovation Platform | Transform Ideas Into Reality",
+    description: "Join 10K+ innovators on Spark. Share ideas, collaborate on projects, and launch startups with AI-powered tools.",
+    url: "https://spark-frontend-59cy.onrender.com",
+  },
+}
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
@@ -30,7 +40,7 @@ export default function Home() {
             Transform Ideas Into Reality
           </h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join a global community of innovators. Share ideas, collaborate on projects, and bring your vision to life with AI-powered tools and supportive mentorship.
+            Join 10,000+ innovators worldwide. Share ideas, collaborate on projects, and launch startups with AI-powered tools and expert mentorship.
           </p>
           <div className="flex gap-4 justify-center">
             <Link href="/register">
