@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Allow all crawlers access to CSS and JS files
+Allow: /_next/static/
+
+# Sitemap location
+Sitemap: https://spark-frontend-59cy.onrender.com/sitemap.xml
+
+# Popular search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
