@@ -19,7 +19,7 @@ services:
       - key: PORT
         value: 3000
       - key: FRONTEND_URL
-        value: https://spark-frontend-fw5i.onrender.com
+        value: https://spark-frontend-59cy.onrender.com
     healthCheckPath: /health
 
   # Frontend Web Service
@@ -34,6 +34,6 @@ services:
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_API_URL
-        value: https://spark-backend-l114.onrender.com
+        value: https://spark-backend-l0dm.onrender.com
       - key: PORT
         value: 3001

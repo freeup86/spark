@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://spark-backend-l114.onrender.com';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://spark-backend-l0dm.onrender.com';
 const API_PREFIX = '/api'; // Backend uses /api prefix for all routes except health
 
 // Debug logging
